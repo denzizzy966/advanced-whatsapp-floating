@@ -1,1520 +1,178 @@
-/* Advanced WhatsApp Floating Button - Admin Styles */
-/* assets/admin.css */
-
 /* ==========================================
-   CSS VARIABLES
+   Advanced WhatsApp Floating Button - Admin Styles
    ========================================== */
-   :root {
-    /* Colors */
+
+/* ---------- CSS VARIABLES ---------- */
+:root {
+    /* Brand Colors */
     --awf-primary: #25D366;
     --awf-primary-hover: #128C7E;
     --awf-primary-light: rgba(37, 211, 102, 0.1);
+
+    /* Status Colors */
     --awf-success: #28a745;
-    --awf-danger: #dc3545;
     --awf-warning: #ffc107;
-    --awf-info: #17a2b8;
+    --awf-danger: #dc3545;
+
+    /* Neutral Colors */
+    --awf-dark: #222;
+    --awf-text: #333;
     --awf-light: #f8f9fa;
-    --awf-dark: #343a40;
     --awf-border: #dee2e6;
-    
-    /* Layout */
-    --awf-border-radius: 8px;
-    --awf-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    --awf-shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.15);
-    --awf-transition: all 0.3s ease;
-    
-    /* Typography */
-    --awf-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --awf-placeholder: #aaa;
+
+    /* Shadows */
+    --awf-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* ==========================================
-   BASE STYLES
-   ========================================== */
-.awf-admin {
-    font-family: var(--awf-font-family);
-    line-height: 1.6;
+/* ---------- GLOBAL ---------- */
+body.awf-admin {
+    font-family: Arial, sans-serif;
+    color: var(--awf-text);
+    background: var(--awf-light);
+    margin: 0;
+    padding: 0;
 }
 
-.awf-admin h1,
-.awf-admin h2,
-.awf-admin h3 {
-    color: var(--awf-dark);
+/* ---------- HEADINGS ---------- */
+.awf-section-title {
+    font-size: 1.3rem;
     font-weight: 600;
-    margin: 0;
-}
-
-/* ==========================================
-   STATISTICS CARDS
-   ========================================== */
-.awf-stats-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
-}
-
-.awf-stat-card {
-    background: white;
-    border-radius: var(--awf-border-radius);
-    box-shadow: var(--awf-shadow);
-    padding: 24px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    border: 1px solid var(--awf-border);
-    transition: var(--awf-transition);
-}
-
-.awf-stat-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--awf-shadow-lg);
-}
-
-.awf-stat-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: var(--awf-primary-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--awf-primary);
-    font-size: 24px;
-    flex-shrink: 0;
-}
-
-.awf-stat-content h3 {
-    margin: 0 0 4px 0;
-    font-size: 2em;
-    font-weight: 700;
     color: var(--awf-dark);
+    margin-bottom: 15px;
 }
 
-.awf-stat-content p {
-    margin: 0;
-    font-size: 0.9em;
-    color: #666;
-    font-weight: 500;
-}
-
-/* ==========================================
-   DASHBOARD GRID
-   ========================================== */
-.awf-dashboard-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    border: 1px solid var(--awf-border);
-    transition: var(--awf-transition);
-}
-
-/* ==========================================
-   QUICK ACTIONS
-   ========================================== */
-.awf-quick-actions {
-    background: white;
-    border-radius: var(--awf-border-radius);
-    box-shadow: var(--awf-shadow);
-    padding: 24px;
-    border: 1px solid var(--awf-border);
-}
-
-.awf-quick-actions h2 {
-    margin: 0 0 20px 0;
-    font-size: 1.3em;
-    color: var(--awf-dark);
-}
-
-.awf-action-buttons {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.awf-action-buttons .button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+/* ---------- BUTTONS ---------- */
+.awf-btn {
+    display: inline-block;
     padding: 10px 16px;
-    border-radius: var(--awf-border-radius);
-    transition: var(--awf-transition);
-    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 4px;
     border: none;
     cursor: pointer;
-    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+    text-align: center;
 }
 
-.awf-action-buttons .button-primary {
+.awf-btn-primary {
     background: var(--awf-primary);
-    color: white;
+    color: #fff;
 }
-
-.awf-action-buttons .button-primary:hover {
+.awf-btn-primary:hover {
     background: var(--awf-primary-hover);
-    transform: translateY(-1px);
 }
 
-/* ==========================================
-   RECENT CONTACTS
-   ========================================== */
-.awf-recent-contacts {
-    background: white;
-    border-radius: var(--awf-border-radius);
-    box-shadow: var(--awf-shadow);
-    padding: 24px;
-    border: 1px solid var(--awf-border);
+.awf-btn-danger {
+    background: var(--awf-danger);
+    color: #fff;
+}
+.awf-btn-danger:hover {
+    opacity: 0.85;
 }
 
-.awf-recent-contacts h2 {
-    margin: 0 0 20px 0;
-    font-size: 1.3em;
-    color: var(--awf-dark);
-}
-
-/* ==========================================
-   TABLE STYLES
-   ========================================== */
+/* ---------- TABLES ---------- */
 .awf-contacts-table {
-    overflow-x: auto;
-    width: 100%;
-}
-
-.awf-contacts-table table {
     width: 100%;
     border-collapse: collapse;
+    box-shadow: var(--awf-shadow);
+    background: #fff;
 }
 
 .awf-contacts-table th,
 .awf-contacts-table td {
     padding: 12px;
+    border: 1px solid var(--awf-border);
     text-align: left;
-    border-bottom: 1px solid var(--awf-border);
-    vertical-align: middle;
 }
 
 .awf-contacts-table th {
     background: var(--awf-light);
     font-weight: 600;
-    color: var(--awf-dark);
-    padding: 16px 12px;
-    border-bottom: 2px solid var(--awf-border);
+    color: var(--awf-dark); /* FIX: tidak sama warna dengan background */
 }
 
-.awf-contacts-table tr:hover {
-    background: rgba(37, 211, 102, 0.05);
+.awf-contacts-table tr:nth-child(even) {
+    background: #fdfdfd;
 }
 
-.awf-message-preview {
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: #666;
-    font-size: 0.9em;
+/* ---------- FORMS ---------- */
+.awf-form-group {
+    margin-bottom: 15px;
 }
 
-.awf-date-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.awf-date {
-    font-weight: 500;
-    color: var(--awf-dark);
-    font-size: 0.9em;
-}
-
-.awf-time {
-    color: #666;
-    font-size: 0.8em;
-}
-
-.awf-no-data {
-    color: #999;
-    font-style: italic;
-}
-
-.awf-table-wrapper {
-    background: white;
-    border-radius: var(--awf-border-radius);
-    box-shadow: var(--awf-shadow);
-    overflow: hidden;
-    border: 1px solid var(--awf-border);
-}
-
-/* ==========================================
-   NO CONTACTS STATE
-   ========================================== */
-.awf-no-contacts {
-    text-align: center;
-    padding: 60px 20px;
-    color: #666;
-}
-
-.awf-no-contacts-icon {
-    font-size: 4em;
-    color: var(--awf-border);
-    margin-bottom: 20px;
-}
-
-.awf-no-contacts h3 {
-    margin: 0 0 12px 0;
-    font-size: 1.4em;
-    color: var(--awf-dark);
-}
-
-.awf-no-contacts p {
-    margin: 0 0 24px 0;
-    font-size: 1em;
-    line-height: 1.5;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* ==========================================
-   SYSTEM STATUS
-   ========================================== */
-.awf-system-status {
-    background: white;
-    border-radius: var(--awf-border-radius);
-    box-shadow: var(--awf-shadow);
-    padding: 24px;
-    border: 1px solid var(--awf-border);
-}
-
-.awf-system-status h2 {
-    margin: 0 0 20px 0;
-    font-size: 1.3em;
-    color: var(--awf-dark);
-}
-
-.awf-status-items {
-    display: grid;
-    gap: 12px;
-}
-
-.awf-status-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.awf-status-item:last-child {
-    border-bottom: none;
-}
-
-.awf-status-label {
-    font-weight: 500;
-    color: var(--awf-dark);
-}
-
-.awf-status-value {
-    padding: 4px 12px;
-    border-radius: 16px;
-    font-size: 0.85em;
+.awf-form-group label {
+    display: block;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    color: var(--awf-dark);
 }
 
-.awf-status-success {
+.awf-form-group input,
+.awf-form-group select,
+.awf-form-group textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--awf-border);
+    border-radius: 4px;
+    font-size: 14px;
+    color: var(--awf-text);
+    background: #fff;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.awf-form-group input:focus,
+.awf-form-group select:focus,
+.awf-form-group textarea:focus {
+    border-color: var(--awf-primary);
+    outline: none;
+}
+
+/* Placeholder */
+.awf-form-group input::placeholder,
+.awf-form-group textarea::placeholder {
+    color: var(--awf-placeholder);
+}
+
+/* ---------- NOTICES ---------- */
+.awf-notice {
+    padding: 12px 15px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.awf-notice-success {
     background: rgba(40, 167, 69, 0.1);
     color: var(--awf-success);
 }
 
-.awf-status-error {
+.awf-notice-warning {
+    background: rgba(255, 193, 7, 0.1);
+    color: var(--awf-warning);
+}
+
+.awf-notice-danger {
     background: rgba(220, 53, 69, 0.1);
     color: var(--awf-danger);
 }
 
-.awf-status-warning {
-    background: rgba(255, 193, 7, 0.1);
-    color: #856404;
-}
-
-.awf-status-info {
-    background: rgba(23, 162, 184, 0.1);
-    color: var(--awf-info);
-}
-
-/* ==========================================
-   FILTER SECTION
-   ========================================== */
-.awf-filters-section {
-    background: white;
-    border-radius: var(--awf-border-radius);
-    box-shadow: var(--awf-shadow);
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 1px solid var(--awf-border);
-}
-
-.awf-filters-form {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-    align-items: end;
-}
-
-.awf-filter-group {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.awf-filter-group label {
-    font-weight: 500;
-    color: var(--awf-dark);
-    font-size: 0.9em;
-}
-
-.awf-filter-group input,
-.awf-filter-group select {
-    padding: 8px 12px;
-    border: 1px solid var(--awf-border);
-    border-radius: var(--awf-border-radius);
-    font-size: 14px;
-    transition: var(--awf-transition);
-}
-
-.awf-filter-group input:focus,
-.awf-filter-group select:focus {
-    outline: none;
-    border-color: var(--awf-primary);
-    box-shadow: 0 0 0 3px var(--awf-primary-light);
-}
-
-.awf-results-summary {
-    background: var(--awf-light);
-    padding: 12px 16px;
-    border-radius: var(--awf-border-radius);
-    margin-bottom: 20px;
-    font-size: 0.9em;
-    color: #666;
-}
-
-/* ==========================================
-   BUTTONS
-   ========================================== */
-.awf-status-select {
-    padding: 4px 8px;
-    border: 1px solid var(--awf-border);
-    border-radius: 4px;
-    font-size: 0.85em;
-    background: white;
-}
-
-.awf-action-buttons .button {
-    padding: 4px 8px;
-    font-size: 0.8em;
-    border-radius: 4px;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    text-decoration: none;
-    border: 1px solid transparent;
-}
-
-.awf-whatsapp-btn {
-    background: var(--awf-primary);
-    color: white;
-}
-
-.awf-whatsapp-btn:hover {
-    background: var(--awf-primary-hover);
-    color: white;
-}
-
-/* Button loading state */
-.button.loading {
-    opacity: 0.7;
-    cursor: wait;
-}
-
-.button.loading .dashicons {
-    animation: spin 1s linear infinite;
-}
-
-/* ==========================================
-   BULK ACTIONS
-   ========================================== */
-.awf-bulk-actions {
-    background: white;
-    padding: 16px;
-    border-top: 1px solid var(--awf-border);
-    display: flex;
-    gap: 12px;
-    align-items: center;
-}
-
-.awf-bulk-actions select {
-    padding: 6px 10px;
-    border: 1px solid var(--awf-border);
-    border-radius: var(--awf-border-radius);
-}
-
-/* ==========================================
-   PAGINATION
-   ========================================== */
-.awf-pagination {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    background: white;
-    border-radius: var(--awf-border-radius);
-    box-shadow: var(--awf-shadow);
-    margin-top: 20px;
-}
-
-.awf-pagination a,
-.awf-pagination span {
-    padding: 8px 12px;
-    margin: 0 2px;
-    border: 1px solid var(--awf-border);
-    border-radius: 4px;
-    text-decoration: none;
-    color: var(--awf-dark);
-    transition: var(--awf-transition);
-}
-
-.awf-pagination a:hover {
-    background: var(--awf-primary);
-    color: white;
-    border-color: var(--awf-primary);
-}
-
-.awf-pagination .current {
-    background: var(--awf-primary);
-    color: white;
-    border-color: var(--awf-primary);
-}
-
-/* ==========================================
-   SETTINGS PAGE
-   ========================================== */
-.awf-settings-container {
-    display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 30px;
-    margin-top: 20px;
-}
-
-.awf-settings-main {
-    background: white;
-    border-radius: var(--awf-border-radius);
-    box-shadow: var(--awf-shadow);
-    border: 1px solid var(--awf-border);
-}
-
-/* ==========================================
-   TABS
-   ========================================== */
-.awf-settings-tabs {
-    overflow: hidden;
-}
-
-.awf-tab-nav {
-    display: flex;
-    background: var(--awf-light);
-    border-bottom: 1px solid var(--awf-border);
-}
-
-.awf-tab-button {
-    flex: 1;
-    padding: 16px 20px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-weight: 500;
-    color: #666;
-    transition: var(--awf-transition);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    justify-content: center;
-    border-bottom: 3px solid transparent;
-}
-
-.awf-tab-button:hover {
-    background: rgba(37, 211, 102, 0.05);
-    color: var(--awf-primary);
-}
-
-.awf-tab-button.active {
-    background: white;
-    color: var(--awf-primary);
-    border-bottom-color: var(--awf-primary);
-}
-
-.awf-tab-panel {
-    display: none;
-    padding: 30px;
-}
-
-.awf-tab-panel.active {
-    display: block;
-}
-
-.awf-settings-section {
-    margin-bottom: 40px;
-}
-
-.awf-settings-section:last-child {
-    margin-bottom: 0;
-}
-
-.awf-settings-section h2 {
-    margin: 0 0 20px 0;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--awf-light);
-    font-size: 1.3em;
-    color: var(--awf-dark);
-}
-
-/* ==========================================
-   FORM ELEMENTS
-   ========================================== */
-.form-table th {
-    width: 200px;
-    padding: 15px 10px 15px 0;
-    vertical-align: top;
-    font-weight: 600;
-    color: var(--awf-dark);
-}
-
-.form-table td {
-    padding: 15px 10px;
-}
-
-.form-table input[type="text"],
-.form-table input[type="email"],
-.form-table input[type="number"],
-.form-table input[type="color"],
-.form-table select,
-.form-table textarea {
-    border: 1px solid var(--awf-border);
-    border-radius: var(--awf-border-radius);
-    padding: 8px 12px;
-    font-size: 14px;
-    transition: var(--awf-transition);
-}
-
-.form-table input:focus,
-.form-table select:focus,
-.form-table textarea:focus {
-    outline: none;
-    border-color: var(--awf-primary);
-    box-shadow: 0 0 0 3px var(--awf-primary-light);
-}
-
-.form-table .description {
-    color: #666;
-    font-size: 0.9em;
-    margin-top: 6px;
-    line-height: 1.4;
-}
-
-/* ==========================================
-   SWITCH TOGGLE
-   ========================================== */
-.awf-switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 24px;
-}
-
-.awf-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.awf-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: var(--awf-transition);
-    border-radius: 24px;
-}
-
-.awf-slider:before {
-    position: absolute;
-    content: "";
-    height: 18px;
-    width: 18px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    transition: var(--awf-transition);
-    border-radius: 50%;
-}
-
-.awf-switch input:checked + .awf-slider {
-    background-color: var(--awf-primary);
-}
-
-.awf-switch input:checked + .awf-slider:before {
-    transform: translateX(26px);
-}
-
-.awf-switch:focus-within .awf-slider {
-    box-shadow: 0 0 0 3px var(--awf-primary-light);
-}
-
-/* ==========================================
-   ICON UPLOAD
-   ========================================== */
-.awf-icon-upload {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.awf-icon-preview {
-    width: 60px;
-    height: 60px;
-    border: 2px dashed var(--awf-border);
-    border-radius: var(--awf-border-radius);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--awf-light);
-}
-
-.awf-icon-preview img {
-    max-width: 50px;
-    max-height: 50px;
-    object-fit: contain;
-}
-
-.awf-no-icon {
-    color: #999;
-    font-size: 0.8em;
-    text-align: center;
-    line-height: 1.2;
-}
-
-/* ==========================================
-   SETTINGS SIDEBAR
-   ========================================== */
-.awf-settings-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.awf-preview-container,
-.awf-help-container {
-    background: white;
-    border-radius: var(--awf-border-radius);
-    box-shadow: var(--awf-shadow);
-    padding: 20px;
-    border: 1px solid var(--awf-border);
-}
-
-.awf-preview-container h3,
-.awf-help-container h3 {
-    margin: 0 0 16px 0;
-    font-size: 1.1em;
-    color: var(--awf-dark);
-}
-
-/* ==========================================
-   PREVIEW
-   ========================================== */
-.awf-preview-wrapper {
-    position: relative;
-    background: #f0f0f0;
-    border-radius: var(--awf-border-radius);
-    padding: 40px 20px;
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.awf-preview-btn {
-    width: 60px;
-    height: 60px;
-    background: var(--awf-primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    cursor: pointer;
-    transition: var(--awf-transition);
-    box-shadow: var(--awf-shadow);
-}
-
-.awf-preview-btn:hover {
-    transform: scale(1.1);
-}
-
-.awf-preview-form {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: white;
-    border-radius: var(--awf-border-radius);
-    box-shadow: var(--awf-shadow-lg);
-    min-width: 250px;
-    overflow: hidden;
-    border: 1px solid var(--awf-border);
-}
-
-.awf-preview-form-header {
-    background: var(--awf-primary);
-    color: white;
-    padding: 12px 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.awf-preview-form-header h4 {
-    margin: 0;
-    font-size: 0.9em;
-}
-
-.awf-preview-close {
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-size: 18px;
-}
-
-.awf-preview-form-body {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.awf-preview-form-body input,
-.awf-preview-form-body textarea,
-.awf-preview-form-body button {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid var(--awf-border);
-    border-radius: 4px;
-    font-size: 0.85em;
-    box-sizing: border-box;
-}
-
-.awf-preview-form-body button {
-    background: var(--awf-primary);
-    color: white;
-    border: none;
-    font-weight: 500;
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-
-.awf-preview-controls {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
-}
-
-.awf-preview-controls .button {
-    flex: 1;
-    text-align: center;
-    font-size: 0.8em;
-    padding: 6px 10px;
-}
-
-/* ==========================================
-   HELP SECTION
-   ========================================== */
-.awf-help-item {
-    margin-bottom: 16px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #eee;
-}
-
-.awf-help-item:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
-}
-
-.awf-help-item h4 {
-    margin: 0 0 8px 0;
-    font-size: 0.95em;
-    color: var(--awf-dark);
-}
-
-.awf-help-item p {
-    margin: 0;
-    font-size: 0.85em;
-    color: #666;
-    line-height: 1.4;
-}
-
-/* ==========================================
-   MODAL
-   ========================================== */
-.awf-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 100000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.awf-modal-content {
-    background: white;
-    border-radius: var(--awf-border-radius);
-    box-shadow: var(--awf-shadow-lg);
-    max-width: 600px;
-    width: 100%;
-    max-height: 90vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-.awf-modal-header {
-    padding: 20px;
-    border-bottom: 1px solid var(--awf-border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--awf-light);
-}
-
-.awf-modal-header h2 {
-    margin: 0;
-    font-size: 1.2em;
-    color: var(--awf-dark);
-}
-
-.awf-modal-close {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #666;
-    padding: 0;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: var(--awf-transition);
-}
-
-.awf-modal-close:hover {
-    background: #eee;
-}
-
-.awf-modal-body {
-    padding: 20px;
-    overflow-y: auto;
-    flex: 1;
-}
-
-.awf-modal-footer {
-    padding: 20px;
-    border-top: 1px solid var(--awf-border);
-    display: flex;
-    gap: 12px;
-    justify-content: flex-end;
-    background: var(--awf-light);
-}
-
-/* ==========================================
-   CONTACT DETAILS
-   ========================================== */
-.awf-contact-details {
-    display: grid;
-    gap: 16px;
-}
-
-.awf-contact-field {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 12px;
-    align-items: start;
-}
-
-.awf-contact-field label {
-    font-weight: 600;
-    color: var(--awf-dark);
-    font-size: 0.9em;
-}
-
-.awf-contact-field span,
-.awf-contact-field div {
-    color: #666;
-    word-break: break-word;
-}
-
-.awf-message-field {
-    grid-template-columns: 120px 1fr;
-    align-items: start;
-}
-
-.awf-message-field div {
-    background: var(--awf-light);
-    padding: 12px;
-    border-radius: var(--awf-border-radius);
-    border: 1px solid var(--awf-border);
-    max-height: 200px;
-    overflow-y: auto;
-    line-height: 1.5;
-}
-
-/* ==========================================
-   ANIMATIONS & LOADING STATES
-   ========================================== */
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.dashicons.spin {
-    animation: spin 1s linear infinite;
-    display: inline-block;
-}
-
-/* ==========================================
-   NOTIFICATIONS
-   ========================================== */
-.awf-admin .notice {
-    margin: 15px 0;
-    padding: 12px;
-    animation: slideDown 0.3s ease-out;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.awf-admin .notice.fade-out {
-    opacity: 0;
-    transform: translateY(-10px);
-}
-
-.awf-admin .notice .dashicons {
-    vertical-align: middle;
-    margin-right: 5px;
-}
-
-.awf-admin .notice.notice-success {
-    border-left-color: #46b450;
-}
-
-.awf-admin .notice.notice-error {
-    border-left-color: #dc3232;
-}
-
-/* ==========================================
-   SAVING OVERLAY
-   ========================================== */
-.awf-saving-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 255, 255, 0.8);
-    z-index: 100000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.awf-saving-message {
+/* ---------- CARD ---------- */
+.awf-card {
     background: #fff;
-    padding: 20px 40px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    gap: 15px;
+    border: 1px solid var(--awf-border);
+    border-radius: 6px;
+    box-shadow: var(--awf-shadow);
+    padding: 16px;
+    margin-bottom: 20px;
 }
 
-.awf-saving-message .spinner {
-    float: none;
-    margin: 0;
-}
-
-/* ==========================================
-   RESPONSIVE DESIGN
-   ========================================== */
-
-/* Large screens (1200px and up) */
-@media (max-width: 1200px) {
-    .awf-settings-container {
-        grid-template-columns: 1fr;
-    }
-    
-    .awf-settings-sidebar {
-        order: -1;
-    }
-}
-
-/* Tablets (768px and up) */
+/* ---------- RESPONSIVE ---------- */
 @media (max-width: 768px) {
-    .awf-stats-row {
-        grid-template-columns: 1fr;
-    }
-    
-    .awf-filters-form {
-        grid-template-columns: 1fr;
-    }
-    
-    .awf-action-buttons {
-        flex-direction: column;
-    }
-    
-    .awf-tab-nav {
-        flex-direction: column;
-    }
-    
-    .awf-tab-panel {
-        padding: 20px;
-    }
-    
-    .awf-preview-wrapper {
-        padding: 20px 10px;
-        min-height: 150px;
-    }
-    
-    .awf-preview-form {
-        position: static;
-        margin-top: 20px;
-    }
-    
-    .awf-contact-field {
-        grid-template-columns: 1fr;
-        gap: 4px;
-    }
-    
-    .awf-modal-content {
-        margin: 10px;
-        max-height: calc(100vh - 20px);
-    }
-    
-    .awf-modal-header,
-    .awf-modal-body,
-    .awf-modal-footer {
-        padding: 16px;
+    .awf-contacts-table th,
+    .awf-contacts-table td {
+        padding: 8px;
+        font-size: 13px;
     }
 }
-
-/* Mobile phones (480px and up) */
-@media (max-width: 480px) {
-    .awf-stat-card {
-        padding: 16px;
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .awf-stat-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 20px;
-    }
-    
-    .awf-contacts-table {
-        font-size: 0.8em;
-    }
-    
-    .awf-action-buttons .button {
-        font-size: 0.7em;
-        padding: 3px 6px;
-    }
-    
-    .awf-quick-actions,
-    .awf-recent-contacts,
-    .awf-system-status,
-    .awf-filters-section,
-    .awf-preview-container,
-    .awf-help-container {
-        padding: 16px;
-    }
-    
-    .awf-tab-button {
-        padding: 12px 16px;
-        font-size: 0.9em;
-    }
-    
-    .awf-pagination a,
-    .awf-pagination span {
-        padding: 6px 8px;
-        font-size: 0.8em;
-    }
-    
-    .awf-modal-content {
-        margin: 5px;
-        border-radius: 4px;
-    }
-    
-    .awf-preview-btn {
-        width: 50px;
-        height: 50px;
-        font-size: 18px;
-    }
-    
-    .awf-settings-section h2 {
-        font-size: 1.1em;
-    }
-    
-    .form-table th {
-        width: auto;
-        padding: 10px 5px 10px 0;
-    }
-    
-    .form-table td {
-        padding: 10px 5px;
-    }
-}
-
-/* Extra small devices (320px and up) */
-@media (max-width: 320px) {
-    .awf-admin {
-        font-size: 14px;
-    }
-    
-    .awf-stat-card {
-        padding: 12px;
-    }
-    
-    .awf-stat-content h3 {
-        font-size: 1.5em;
-    }
-    
-    .awf-quick-actions,
-    .awf-recent-contacts,
-    .awf-system-status,
-    .awf-filters-section,
-    .awf-preview-container,
-    .awf-help-container {
-        padding: 12px;
-    }
-    
-    .awf-tab-button {
-        padding: 10px 12px;
-        gap: 4px;
-    }
-    
-    .awf-tab-panel {
-        padding: 16px;
-    }
-    
-    .awf-preview-wrapper {
-        padding: 16px 8px;
-        min-height: 120px;
-    }
-    
-    .awf-preview-btn {
-        width: 45px;
-        height: 45px;
-        font-size: 16px;
-    }
-    
-    .awf-modal-header,
-    .awf-modal-body,
-    .awf-modal-footer {
-        padding: 12px;
-    }
-    
-    .awf-saving-message {
-        padding: 16px 24px;
-    }
-}
-
-/* ==========================================
-   ACCESSIBILITY IMPROVEMENTS
-   ========================================== */
-
-/* Focus styles for better accessibility */
-.awf-admin button:focus,
-.awf-admin input:focus,
-.awf-admin select:focus,
-.awf-admin textarea:focus,
-.awf-admin a:focus {
-    outline: 2px solid var(--awf-primary);
-    outline-offset: 2px;
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-    :root {
-        --awf-border: #000;
-        --awf-light: #fff;
-        --awf-dark: #000;
-    }
-    
-    .awf-stat-card:hover {
-        border: 2px solid var(--awf-primary);
-    }
-}
-
-/* Reduced motion support */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-    
-    .awf-stat-card:hover,
-    .awf-preview-btn:hover,
-    .awf-action-buttons .button-primary:hover {
-        transform: none;
-    }
-}
-
-/* ==========================================
-   PRINT STYLES
-   ========================================== */
-@media print {
-    .awf-admin {
-        background: white !important;
-        color: black !important;
-    }
-    
-    .awf-stat-card,
-    .awf-quick-actions,
-    .awf-recent-contacts,
-    .awf-system-status,
-    .awf-table-wrapper {
-        box-shadow: none !important;
-        border: 1px solid #ccc !important;
-        break-inside: avoid;
-    }
-    
-    .awf-action-buttons,
-    .awf-bulk-actions,
-    .awf-pagination,
-    .awf-modal,
-    .awf-saving-overlay {
-        display: none !important;
-    }
-    
-    .awf-tab-panel {
-        display: block !important;
-    }
-    
-    .awf-contacts-table {
-        page-break-inside: avoid;
-    }
-}
-
-/* ==========================================
-   DARK MODE SUPPORT (Optional)
-   ========================================== */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --awf-light: #2d3748;
-        --awf-dark: #f7fafc;
-        --awf-border: #4a5568;
-    }
-    
-    .awf-admin {
-        background-color: #1a202c;
-        color: #f7fafc;
-    }
-    
-    .awf-stat-card,
-    .awf-quick-actions,
-    .awf-recent-contacts,
-    .awf-system-status,
-    .awf-filters-section,
-    .awf-table-wrapper,
-    .awf-settings-main,
-    .awf-preview-container,
-    .awf-help-container,
-    .awf-modal-content {
-        background: #2d3748;
-        border-color: #4a5568;
-    }
-    
-    .awf-preview-wrapper {
-        background: #1a202c;
-    }
-    
-    .form-table input,
-    .form-table select,
-    .form-table textarea,
-    .awf-filter-group input,
-    .awf-filter-group select {
-        background: #2d3748;
-        color: #f7fafc;
-        border-color: #4a5568;
-    }
-    
-    .awf-contacts-table tr:hover {
-        background: rgba(37, 211, 102, 0.1);
-    }
-}
-
-/* ==========================================
-   UTILITY CLASSES
-   ========================================== */
-.awf-hidden {
-    display: none !important;
-}
-
-.awf-sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
-.awf-text-center {
-    text-align: center;
-}
-
-.awf-text-left {
-    text-align: left;
-}
-
-.awf-text-right {
-    text-align: right;
-}
-
-.awf-mb-0 { margin-bottom: 0 !important; }
-.awf-mb-1 { margin-bottom: 0.25rem !important; }
-.awf-mb-2 { margin-bottom: 0.5rem !important; }
-.awf-mb-3 { margin-bottom: 1rem !important; }
-.awf-mb-4 { margin-bottom: 1.5rem !important; }
-.awf-mb-5 { margin-bottom: 3rem !important; }
-
-.awf-mt-0 { margin-top: 0 !important; }
-.awf-mt-1 { margin-top: 0.25rem !important; }
-.awf-mt-2 { margin-top: 0.5rem !important; }
-.awf-mt-3 { margin-top: 1rem !important; }
-.awf-mt-4 { margin-top: 1.5rem !important; }
-.awf-mt-5 { margin-top: 3rem !important; }
-
-.awf-p-0 { padding: 0 !important; }
-.awf-p-1 { padding: 0.25rem !important; }
-.awf-p-2 { padding: 0.5rem !important; }
-.awf-p-3 { padding: 1rem !important; }
-.awf-p-4 { padding: 1.5rem !important; }
-.awf-p-5 { padding: 3rem !important; }
-
-.awf-w-full { width: 100% !important; }
-.awf-h-full { height: 100% !important; }
-
-.awf-flex { display: flex !important; }
-.awf-flex-col { flex-direction: column !important; }
-.awf-items-center { align-items: center !important; }
-.awf-justify-center { justify-content: center !important; }
-.awf-justify-between { justify-content: space-between !important; }
-
-.awf-text-success { color: var(--awf-success) !important; }
-.awf-text-danger { color: var(--awf-danger) !important; }
-.awf-text-warning { color: #856404 !important; }
-.awf-text-info { color: var(--awf-info) !important; }
-.awf-text-primary { color: var(--awf-primary) !important; }
-
-.awf-bg-success { background-color: var(--awf-success) !important; }
-.awf-bg-danger { background-color: var(--awf-danger) !important; }
-.awf-bg-warning { background-color: var(--awf-warning) !important; }
-.awf-bg-info { background-color: var(--awf-info) !important; }
-.awf-bg-primary { background-color: var(--awf-primary) !important; }
-
-/* ==========================================
-   COMPONENT VARIATIONS
-   ========================================== */
-
-/* Small button variant */
-.awf-button-sm {
-    padding: 6px 12px !important;
-    font-size: 0.8em !important;
-}
-
-/* Large button variant */
-.awf-button-lg {
-    padding: 12px 24px !important;
-    font-size: 1.1em !important;
-}
-
-/* Outline button variant */
-.awf-button-outline {
-    background: transparent !important;
-    border: 2px solid var(--awf-primary) !important;
-    color: var(--awf-primary) !important;
-}
-
-.awf-button-outline:hover {
-    background: var(--awf-primary) !important;
-    color: white !important;
-}
-
-/* Compact table variant */
-.awf-table-compact .awf-contacts-table th,
-.awf-table-compact .awf-contacts-table td {
-    padding: 8px !important;
-    font-size: 0.9em;
-}
-
-/* Bordered table variant */
-.awf-table-bordered .awf-contacts-table th,
-.awf-table-bordered .awf-contacts-table td {
-    border: 1px solid var(--awf-border) !important;
-}
-
-/* Striped table variant */
-.awf-table-striped .awf-contacts-table tr:nth-child(even) {
-    background-color: rgba(0, 0, 0, 0.02);
-}
-
-/* ==========================================
-   PERFORMANCE OPTIMIZATIONS
-   ========================================== */
-
-/* Enable hardware acceleration for animations */
-.awf-stat-card,
-.awf-preview-btn,
-.awf-tab-button {
-    will-change: transform;
-}
-
-/* Optimize repaints for frequently changing elements */
-.awf-saving-overlay,
-.awf-modal {
-    contain: layout style paint;
-}
-
-/* ==========================================
-   END OF STYLESHEET
-   ========================================== */

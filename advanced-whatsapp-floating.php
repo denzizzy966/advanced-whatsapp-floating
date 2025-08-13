@@ -49,9 +49,17 @@ class AdvancedWhatsAppFloating {
         
         // Load text domain
         add_action('plugins_loaded', array($this, 'load_textdomain'));
+
+        // Add dashboard widget
+        add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widget' ) );
+
+        // Register activity logging
+        add_action( 'init', array( $this, 'register_activity_logging' ) );
+
     }
     
     public function activate() {
+        // Create database tables
         $this->create_database_tables();
         $this->set_default_options();
     }
@@ -700,6 +708,214 @@ class AdvancedWhatsAppFloating {
         );
         
         include AWF_PLUGIN_PATH . 'templates/floating-button.php';
+    }
+
+    /**
+    * Register dashboard widget
+    */
+    public function add_dashboard_widget() {
+        // Check if user can manage options
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        wp_add_dashboard_widget(
+            'awf_dashboard_widget', // Widget ID
+            __( 'WhatsApp Floating Button', 'advanced-whatsapp-floating' ), // Widget Title
+            array( $this, 'render_dashboard_widget' ), // Display callback
+            null, // Control callback
+            null, // Callback args
+            'normal', // Context (normal, side, column3, column4)
+            'high' // Priority
+        );
+    }
+
+    /**
+     * Render dashboard widget content
+     */
+    public function render_dashboard_widget() {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'awf_contacts';
+
+    // Get statistics
+    $total_contacts     = $wpdb->get_var( "SELECT COUNT(*) FROM $table_name" );
+    $today_contacts     = $wpdb->get_var(
+        $wpdb->prepare(
+            "SELECT COUNT(*) FROM $table_name WHERE DATE(submitted_at) = %s",
+            current_time( 'Y-m-d' )
+        )
+    );
+    $this_week_contacts = $wpdb->get_var(
+        "SELECT COUNT(*) FROM $table_name WHERE YEARWEEK(submitted_at) = YEARWEEK(NOW())"
+    );
+
+    // Get recent contacts (last 5)
+    $recent_contacts = $wpdb->get_results(
+        "SELECT * FROM $table_name ORDER BY submitted_at DESC LIMIT 5"
+    );
+
+    // WhatsApp configuration status
+    $phone_configured = ! empty( get_option( 'awf_phone_number' ) );
+
+    ?>
+    <style>
+        .awf-dashboard-widget-content { margin: -12px -12px 0; }
+        .awf-widget-stats {
+            display: flex; justify-content: space-between;
+            padding: 15px; background: #f0f0f1; border-bottom: 1px solid #c3c4c7;
+        }
+        .awf-stat-item { text-align: center; flex: 1; }
+        .awf-stat-number {
+            font-size: 24px; font-weight: 600; color: #2271b1;
+            display: block; margin-bottom: 5px;
+        }
+        .awf-stat-label { font-size: 12px; color: #646970; text-transform: uppercase; }
+        .awf-widget-content { padding: 15px; }
+        .awf-widget-status {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px; border-radius: 4px; margin-bottom: 15px;
+            background: <?php echo $phone_configured ? '#d4edda' : '#f8d7da'; ?>;
+        }
+        .awf-status-icon { font-size: 20px; }
+        .awf-status-icon.success { color: #46b450; }
+        .awf-status-icon.error { color: #dc3232; }
+        .awf-recent-contacts-widget { margin-top: 15px; }
+        .awf-recent-contacts-widget h4 {
+            margin: 0 0 10px; font-size: 13px; font-weight: 600;
+        }
+        .awf-contact-item {
+            display: flex; justify-content: space-between;
+            padding: 8px 0; border-bottom: 1px solid #eee; font-size: 13px;
+        }
+        .awf-contact-item:last-child { border-bottom: none; }
+        .awf-contact-name { font-weight: 500; color: #2271b1; }
+        .awf-contact-time { color: #646970; font-size: 11px; }
+        .awf-widget-actions {
+            display: flex; gap: 10px; margin-top: 15px;
+            padding-top: 15px; border-top: 1px solid #eee;
+        }
+        .awf-widget-actions .button { flex: 1; text-align: center; font-size: 12px; }
+        .awf-no-contacts { text-align: center; padding: 20px; color: #646970; }
+        .awf-no-contacts .dashicons {
+            font-size: 40px; width: 40px; height: 40px; color: #ddd; margin-bottom: 10px;
+        }
+    </style>
+
+    <div class="awf-dashboard-widget-content">
+        <!-- Statistics -->
+        <div class="awf-widget-stats">
+            <div class="awf-stat-item">
+                <span class="awf-stat-number"><?php echo number_format( $total_contacts ); ?></span>
+                <span class="awf-stat-label"><?php _e( 'Total', 'advanced-whatsapp-floating' ); ?></span>
+            </div>
+            <div class="awf-stat-item">
+                <span class="awf-stat-number"><?php echo number_format( $today_contacts ); ?></span>
+                <span class="awf-stat-label"><?php _e( 'Today', 'advanced-whatsapp-floating' ); ?></span>
+            </div>
+            <div class="awf-stat-item">
+                <span class="awf-stat-number"><?php echo number_format( $this_week_contacts ); ?></span>
+                <span class="awf-stat-label"><?php _e( 'This Week', 'advanced-whatsapp-floating' ); ?></span>
+            </div>
+        </div>
+
+        <div class="awf-widget-content">
+            <!-- Status -->
+            <div class="awf-widget-status">
+                <?php if ( $phone_configured ) : ?>
+                    <span class="dashicons dashicons-yes-alt awf-status-icon success"></span>
+                    <div>
+                        <strong><?php _e( 'WhatsApp is Active', 'advanced-whatsapp-floating' ); ?></strong><br>
+                        <span style="font-size: 12px;"><?php echo get_option( 'awf_phone_number' ); ?></span>
+                    </div>
+                <?php else : ?>
+                    <span class="dashicons dashicons-warning awf-status-icon error"></span>
+                    <div>
+                        <strong><?php _e( 'Setup Required', 'advanced-whatsapp-floating' ); ?></strong><br>
+                        <span style="font-size: 12px;"><?php _e( 'Please configure WhatsApp number', 'advanced-whatsapp-floating' ); ?></span>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+            <!-- Recent Contacts -->
+            <?php if ( ! empty( $recent_contacts ) ) : ?>
+                <div class="awf-recent-contacts-widget">
+                    <h4><?php _e( 'Recent Contacts', 'advanced-whatsapp-floating' ); ?></h4>
+                    <?php foreach ( $recent_contacts as $contact ) : ?>
+                        <div class="awf-contact-item">
+                            <div>
+                                <span class="awf-contact-name"><?php echo esc_html( $contact->name ); ?></span><br>
+                                <span class="awf-contact-time">
+                                    <?php
+                                    echo human_time_diff( strtotime( $contact->submitted_at ), current_time( 'timestamp' ) ) . ' ' .
+                                            __( 'ago', 'advanced-whatsapp-floating' );
+                                    ?>
+                                </span>
+                            </div>
+                            <div>
+                                <a href="<?php echo admin_url( 'admin.php?page=awf-contacts' ); ?>" class="button button-small">
+                                    <?php _e( 'View', 'advanced-whatsapp-floating' ); ?>
+                                </a>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php else : ?>
+                <div class="awf-no-contacts">
+                    <span class="dashicons dashicons-format-chat"></span>
+                    <p><?php _e( 'No contacts yet', 'advanced-whatsapp-floating' ); ?></p>
+                </div>
+            <?php endif; ?>
+
+            <!-- Action Buttons -->
+            <div class="awf-widget-actions">
+                <a href="<?php echo admin_url( 'admin.php?page=awf-main' ); ?>" class="button">
+                    <span class="dashicons dashicons-chart-bar" style="vertical-align: middle;"></span>
+                    <?php _e( 'Dashboard', 'advanced-whatsapp-floating' ); ?>
+                </a>
+                <a href="<?php echo admin_url( 'admin.php?page=awf-contacts' ); ?>" class="button">
+                    <span class="dashicons dashicons-groups" style="vertical-align: middle;"></span>
+                    <?php _e( 'Contacts', 'advanced-whatsapp-floating' ); ?>
+                </a>
+                <a href="<?php echo admin_url( 'admin.php?page=awf-settings' ); ?>" class="button button-primary">
+                    <span class="dashicons dashicons-admin-settings" style="vertical-align: middle;"></span>
+                    <?php _e( 'Settings', 'advanced-whatsapp-floating' ); ?>
+                </a>
+            </div>
+        </div>
+    </div>
+    <?php
+    }
+
+
+
+    public function register_activity_logging() {
+        // Hook untuk log activity saat ada contact baru
+        add_action( 'awf_after_contact_save', array( $this, 'log_contact_activity' ), 10, 2 );
+    }
+
+    public function log_contact_activity( $contact_id, $data ) {
+        if ( function_exists( 'wp_insert_comment' ) ) {
+            $activity_message = sprintf(
+                __( 'New WhatsApp contact from %s (%s)', 'advanced-whatsapp-floating' ),
+                $data['name'],
+                $data['email']
+            );
+
+            // Simpan sebagai transient untuk activity feed
+            $activities = get_transient( 'awf_recent_activities' ) ?: array();
+            array_unshift(
+                $activities,
+                array(
+                    'message' => $activity_message,
+                    'time'    => current_time( 'timestamp' ),
+                    'type'    => 'contact'
+                )
+            );
+
+            // Keep only last 10 activities
+            $activities = array_slice( $activities, 0, 10 );
+            set_transient( 'awf_recent_activities', $activities, DAY_IN_SECONDS );
+        }
     }
 }
 

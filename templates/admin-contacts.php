@@ -130,7 +130,12 @@ if (!defined('ABSPATH')) {
                                         <span class="dashicons dashicons-visibility"></span>
                                         <?php _e('View', 'advanced-whatsapp-floating'); ?>
                                     </button>
-                                    <a href="https://wa.me/<?php echo get_option('awf_phone_number'); ?>?text=<?php echo urlencode("Hello {$contact->name}, thank you for contacting us!"); ?>" 
+                                    <?php $phone = preg_replace('/\D/', '', $contact->phone); // buang karakter non-angka ?> 
+                                    <?php if (substr($phone, 0, 1) === '0') {
+                                        $phone = '62' . substr($phone, 1);
+                                    }
+                                    ?>
+                                    <a href="https://wa.me/<?php echo esc_attr($phone); ?>?text=<?php echo urlencode("Hello {$contact->name}, thank you for contacting us!"); ?>" 
                                        target="_blank" class="button button-small awf-whatsapp-btn">
                                         <span class="dashicons dashicons-whatsapp"></span>
                                         <?php _e('WhatsApp', 'advanced-whatsapp-floating'); ?>
