@@ -196,9 +196,6 @@ class AdvancedWhatsAppFloating {
         if (!empty($custom_css)) {
             wp_add_inline_style('awf-frontend-css', $custom_css);
         }
-    }
-        wp_enqueue_script('awf-frontend-js', AWF_PLUGIN_URL . 'assets/frontend.js', array('jquery'), AWF_PLUGIN_VERSION, true);
-        
         wp_localize_script('awf-frontend-js', 'awf_ajax', array(
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('awf_nonce'),
@@ -310,26 +307,35 @@ class AdvancedWhatsAppFloating {
     }
     
     public function save_settings() {
-        // Check permissions and nonce
-        if (!isset($_POST['awf_nonce']) || !wp_verify_nonce($_POST['awf_nonce'], 'awf_nonce')) {
-            if (wp_doing_ajax()) {
-                wp_send_json_error(__('Security check failed', 'advanced-whatsapp-floating'));
-                return;
-            } else {
-                wp_die(__('Security check failed', 'advanced-whatsapp-floating'));
-            }
-        }
-        
-        if (!current_user_can('manage_options')) {
-            if (wp_doing_ajax()) {
+    // Check permissions
+        if ( ! current_user_can('manage_options') ) {
+            if ( wp_doing_ajax() ) {
                 wp_send_json_error(__('You do not have sufficient permissions', 'advanced-whatsapp-floating'));
-                return;
             } else {
                 wp_die(__('You do not have sufficient permissions', 'advanced-whatsapp-floating'));
             }
+            return;
         }
-        
-        $settings = array(
+    
+        // Check nonce (both AJAX & regular form)
+        $nonce_valid = false;
+        if ( isset($_POST['awf_nonce']) ) {
+            $nonce_valid = wp_verify_nonce($_POST['awf_nonce'], 'awf_nonce');
+        } elseif ( isset($_POST['nonce']) ) {
+            $nonce_valid = wp_verify_nonce($_POST['nonce'], 'awf_nonce');
+        }
+    
+        if ( ! $nonce_valid ) {
+            if ( wp_doing_ajax() ) {
+                wp_send_json_error(__('Security check failed', 'advanced-whatsapp-floating'));
+            } else {
+                wp_die(__('Security check failed', 'advanced-whatsapp-floating'));
+            }
+            return;
+        }
+    
+        // Settings fields
+        $settings = [
             'awf_phone_number',
             'awf_background_color',
             'awf_text_color',
@@ -347,33 +353,38 @@ class AdvancedWhatsAppFloating {
             'awf_submit_button_text',
             'awf_success_message',
             'awf_button_size'
-        );
-        
-        foreach ($settings as $setting) {
-            if (isset($_POST[$setting])) {
-                if ($setting === 'awf_custom_css') {
+        ];
+    
+        // Save each setting
+        foreach ( $settings as $setting ) {
+            if ( isset($_POST[$setting]) ) {
+                if ( $setting === 'awf_custom_css' ) {
                     update_option($setting, wp_strip_all_tags($_POST[$setting]));
                 } else {
                     update_option($setting, sanitize_text_field($_POST[$setting]));
                 }
+            } elseif ( in_array($setting, ['awf_animated', 'awf_show_company_field', 'awf_enable_analytics'], true) ) {
+                // Unchecked checkboxes
+                update_option($setting, '0');
             }
         }
-        
-        // Handle required fields array
-        if (isset($_POST['awf_required_fields']) && is_array($_POST['awf_required_fields'])) {
+    
+        // Save required fields array
+        if ( isset($_POST['awf_required_fields']) && is_array($_POST['awf_required_fields']) ) {
             update_option('awf_required_fields', array_map('sanitize_text_field', $_POST['awf_required_fields']));
         } else {
-            update_option('awf_required_fields', array());
+            update_option('awf_required_fields', []);
         }
-        
-        if (wp_doing_ajax()) {
+    
+        // Return response
+        if ( wp_doing_ajax() ) {
             wp_send_json_success(__('Settings saved successfully!', 'advanced-whatsapp-floating'));
         } else {
-            add_action('admin_notices', function() {
-                echo '<div class="notice notice-success"><p>' . __('Settings saved successfully!', 'advanced-whatsapp-floating') . '</p></div>';
-            });
+            wp_redirect(add_query_arg('settings-updated', 'true', wp_get_referer()));
+            exit;
         }
     }
+
     
     public function handle_contact_submission() {
         // Check nonce

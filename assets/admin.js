@@ -273,60 +273,96 @@
         }
         
         initFormHandlers() {
-            // Settings form
-            $('#awf-settings-form').on('submit', function(e) {
+        const settingsForm = document.querySelector('#awf-settings-form');
+        const saveBtn      = document.querySelector('#awf-save-settings');
+        const resetBtn     = document.querySelector('#awf-reset-settings');
+    
+        // Save Settings
+        if (settingsForm) {
+            settingsForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                
-                const $form = $(this);
-                const $submitBtn = $('#awf-save-settings');
-                const originalText = $submitBtn.text();
-                
-                $submitBtn.prop('disabled', true).text('Saving...');
-                
-                $.ajax({
-                    url: awf_ajax.ajax_url,
-                    type: 'POST',
-                    data: $form.serialize() + '&action=awf_save_settings',
-                    success: function(response) {
-                        if (response.success) {
-                            this.showNotice('Settings saved successfully!', 'success');
-                        } else {
-                            this.showNotice('Failed to save settings: ' + response.data, 'error');
-                        }
-                    }.bind(this),
-                    error: function() {
-                        this.showNotice('Failed to save settings. Please try again.', 'error');
-                    }.bind(this),
-                    complete: function() {
-                        $submitBtn.prop('disabled', false).text(originalText);
+    
+                const originalText = saveBtn.textContent;
+                saveBtn.disabled = true;
+                saveBtn.innerHTML = '<span class="dashicons dashicons-update-alt spin"></span> Saving...';
+    
+                try {
+                    const formData = new FormData(settingsForm);
+                    formData.append('action', 'awf_save_settings');
+    
+                    // Make sure nonce is included
+                    if (!formData.has('awf_nonce')) {
+                        formData.append('awf_nonce', awf_ajax.nonce);
                     }
-                });
-            });
-            
-            // Reset settings
-            $('#awf-reset-settings').on('click', function() {
-                if (confirm('Are you sure you want to reset all settings to default values? This action cannot be undone.')) {
-                    $.ajax({
-                        url: awf_ajax.ajax_url,
-                        type: 'POST',
-                        data: {
-                            action: 'awf_reset_settings',
-                            nonce: awf_ajax.nonce
-                        },
-                        success: function(response) {
-                            if (response.success) {
-                                location.reload();
-                            } else {
-                                alert('Failed to reset settings: ' + response.data);
-                            }
-                        },
-                        error: function() {
-                            alert('Failed to reset settings. Please try again.');
-                        }
+    
+                    const response = await fetch(awf_ajax.ajax_url, {
+                        method: 'POST',
+                        body: formData
                     });
+    
+                    const data = await response.json();
+    
+                    if (data.success) {
+                        this.showNotice('Settings saved successfully!', 'success');
+    
+                        const notice = document.createElement('div');
+                        notice.className = 'notice notice-success is-dismissible';
+                        notice.innerHTML = '<p><strong>Success!</strong> Settings have been saved.</p>';
+    
+                        const wrap = document.querySelector('.wrap');
+                        if (wrap) wrap.prepend(notice);
+    
+                        setTimeout(() => notice.remove(), 3000);
+                    } else {
+                        this.showNotice('Failed to save settings: ' + (data.data || 'Unknown error'), 'error');
+                    }
+                } catch (error) {
+                    this.showNotice('Failed to save settings. Error: ' + error.message, 'error');
+                } finally {
+                    saveBtn.disabled = false;
+                    saveBtn.textContent = originalText;
                 }
             });
         }
+    
+        // Save button direct click (backup)
+        if (saveBtn) {
+            saveBtn.addEventListener('click', () => {
+                if (!saveBtn.disabled) {
+                    settingsForm?.dispatchEvent(new Event('submit', { cancelable: true }));
+                }
+            });
+        }
+    
+        // Reset Settings
+        if (resetBtn) {
+            resetBtn.addEventListener('click', async () => {
+                if (confirm('Are you sure you want to reset all settings to default values? This action cannot be undone.')) {
+                    try {
+                        const formData = new FormData();
+                        formData.append('action', 'awf_reset_settings');
+                        formData.append('nonce', awf_ajax.nonce);
+    
+                        const response = await fetch(awf_ajax.ajax_url, {
+                            method: 'POST',
+                            body: formData
+                        });
+    
+                        const data = await response.json();
+    
+                        if (data.success) {
+                            location.reload();
+                        } else {
+                            alert('Failed to reset settings: ' + data.data);
+                        }
+                    } catch (error) {
+                        alert('Failed to reset settings. Error: ' + error.message);
+                    }
+                }
+            });
+        }
+    }
+
         
         initBulkActions() {
             $('#awf-apply-bulk-action').on('click', function() {
@@ -527,15 +563,48 @@
         
         showNotice(message, type = 'info') {
             const noticeClass = type === 'error' ? 'notice-error' : 'notice-success';
-            const notice = $(`<div class="notice ${noticeClass} is-dismissible"><p>${message}</p></div>`);
-            
-            $('.wrap').first().after(notice);
-            
-            // Auto-remove after 5 seconds
+            const iconClass   = type === 'error' ? 'dashicons-warning' : 'dashicons-yes';
+        
+            // Create notice container
+            const notice = document.createElement('div');
+            notice.className = `notice ${noticeClass} is-dismissible`;
+            notice.innerHTML = `
+                <p><span class="dashicons ${iconClass}"></span> ${message}</p>
+                <button type="button" class="notice-dismiss">
+                    <span class="screen-reader-text">Dismiss this notice.</span>
+                </button>
+            `;
+        
+            // Insert notice after the first <h1> inside .wrap
+            const wrap = document.querySelector('.wrap');
+            if (wrap) {
+                const firstH1 = wrap.querySelector('h1');
+                if (firstH1) {
+                    firstH1.insertAdjacentElement('afterend', notice);
+                } else {
+                    wrap.prepend(notice);
+                }
+            } else {
+                document.body.prepend(notice);
+            }
+        
+            // Handle dismiss click
+            const dismissBtn = notice.querySelector('.notice-dismiss');
+            if (dismissBtn) {
+                dismissBtn.addEventListener('click', () => {
+                    notice.classList.add('fade-out');
+                    setTimeout(() => notice.remove(), 500); // tunggu animasi selesai
+                });
+            }
+        
+            // Auto-remove after 5 seconds with fade-out effect
             setTimeout(() => {
-                notice.fadeOut();
+                notice.classList.add('fade-out');
+                setTimeout(() => notice.remove(), 500); // tunggu animasi selesai
             }, 5000);
         }
+
+
         
         saveDraft() {
             // Save form data to localStorage as draft
