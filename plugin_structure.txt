@@ -1,0 +1,380 @@
+advanced-whatsapp-floating/
+├── README.md
+├── advanced-whatsapp-floating.php          # Main plugin file
+├── uninstall.php                           # Uninstall script
+├── assets/
+│   ├── admin.css                          # Admin panel styles
+│   ├── admin.js                           # Admin panel JavaScript
+│   ├── frontend.css                       # Frontend styles
+│   └── frontend.js                        # Frontend JavaScript
+├── templates/
+│   ├── admin-dashboard.php                # Dashboard template
+│   ├── admin-contacts.php                 # Contacts page template
+│   ├── admin-settings.php                 # Settings page template
+│   └── floating-button.php                # Frontend button template
+├── includes/
+│   ├── class-awf-admin.php               # Admin class
+│   ├── class-awf-frontend.php            # Frontend class
+│   ├── class-awf-database.php            # Database operations
+│   ├── class-awf-ajax.php                # AJAX handlers
+│   ├── class-awf-export.php              # Export functionality
+│   └── functions.php                      # Helper functions
+├── languages/
+│   ├── advanced-whatsapp-floating.pot     # Translation template
+│   ├── advanced-whatsapp-floating-id_ID.po # Indonesian translation
+│   └── advanced-whatsapp-floating-id_ID.mo # Indonesian translation (compiled)
+└── screenshots/
+    ├── screenshot-1.png                   # Plugin dashboard
+    ├── screenshot-2.png                   # Settings page
+    ├── screenshot-3.png                   # Contacts management
+    ├── screenshot-4.png                   # Frontend button
+    └── screenshot-5.png                   # Mobile view
+
+File Descriptions:
+==================
+
+1. MAIN FILES:
+   - advanced-whatsapp-floating.php: Plugin header, activation, main class
+   - uninstall.php: Clean up data when plugin is deleted
+   - README.md: Documentation dan installation guide
+
+2. ASSETS:
+   - admin.css: Styles untuk admin panel (dashboard, settings, contacts)
+   - admin.js: JavaScript untuk admin functionality
+   - frontend.css: Styles untuk floating button dan form
+   - frontend.js: JavaScript untuk frontend interactions
+
+3. TEMPLATES:
+   - admin-dashboard.php: Dashboard with statistics dan recent contacts
+   - admin-contacts.php: Contact management dengan filtering dan pagination
+   - admin-settings.php: Settings page dengan tabs dan live preview
+   - floating-button.php: Frontend button dan contact form
+
+4. INCLUDES:
+   - class-awf-admin.php: Admin panel functionality
+   - class-awf-frontend.php: Frontend display dan form handling
+   - class-awf-database.php: Database operations dan queries
+   - class-awf-ajax.php: AJAX request handlers
+   - class-awf-export.php: Export/import functionality
+   - functions.php: Helper functions dan utilities
+
+5. LANGUAGES:
+   - Translation files untuk internationalization
+   - Default: English, Included: Indonesian
+
+6. SCREENSHOTS:
+   - Plugin screenshots untuk WordPress repository
+   - Different views: desktop, mobile, admin
+
+Installation Instructions:
+=========================
+
+1. METHOD 1 - WordPress Admin:
+   ```
+   1. Login ke WordPress Admin
+   2. Go to Plugins > Add New > Upload Plugin
+   3. Choose advanced-whatsapp-floating.zip
+   4. Click Install Now
+   5. Activate the plugin
+   ```
+
+2. METHOD 2 - FTP Upload:
+   ```
+   1. Extract advanced-whatsapp-floating.zip
+   2. Upload folder ke /wp-content/plugins/
+   3. Login ke WordPress Admin
+   4. Go to Plugins > Installed Plugins
+   5. Activate "Advanced WhatsApp Floating Button"
+   ```
+
+3. METHOD 3 - WP-CLI:
+   ```bash
+   wp plugin install advanced-whatsapp-floating.zip --activate
+   ```
+
+Configuration Steps:
+==================
+
+1. BASIC SETUP:
+   - Go to WhatsApp Floating > Settings
+   - Enter WhatsApp number (format: 628123456789)
+   - Configure form title and button text
+   - Save settings
+
+2. APPEARANCE CUSTOMIZATION:
+   - Choose button position
+   - Set colors and size
+   - Upload custom icon (optional)
+   - Enable/disable animation
+
+3. FORM CONFIGURATION:
+   - Select form size
+   - Show/hide company field
+   - Set required fields
+   - Configure post-submit actions
+
+4. ADVANCED OPTIONS:
+   - Enable analytics
+   - Add custom CSS
+   - Export/import settings
+
+Database Tables:
+===============
+
+The plugin creates these database tables:
+
+1. {prefix}_awf_contacts:
+   ```sql
+   CREATE TABLE wp_awf_contacts (
+       id mediumint(9) NOT NULL AUTO_INCREMENT,
+       name tinytext NOT NULL,
+       email varchar(100) NOT NULL,
+       phone varchar(50),
+       company varchar(200),
+       message text NOT NULL,
+       ip_address varchar(45),
+       user_agent text,
+       submitted_at datetime DEFAULT CURRENT_TIMESTAMP,
+       status varchar(20) DEFAULT 'new',
+       PRIMARY KEY (id)
+   );
+   ```
+
+WordPress Options:
+=================
+
+Plugin settings stored in wp_options:
+
+- awf_phone_number: WhatsApp number
+- awf_background_color: Button background color
+- awf_text_color: Button text color
+- awf_font_size: Form font size
+- awf_font_family: Form font family
+- awf_position: Button position
+- awf_custom_icon: Custom icon URL
+- awf_animated: Animation enable/disable
+- awf_action_after_submit: Post-submit action
+- awf_form_size: Form size
+- awf_show_company_field: Company field visibility
+- awf_required_fields: Required fields array
+- awf_custom_css: Custom CSS
+- awf_enable_analytics: Analytics enable/disable
+- awf_form_title: Form title text
+- awf_submit_button_text: Submit button text
+- awf_success_message: Success message text
+- awf_button_size: Button size in pixels
+
+Hooks & Filters:
+===============
+
+ACTION HOOKS:
+- awf_before_form_display: Before form is displayed
+- awf_after_form_display: After form is displayed
+- awf_before_contact_save: Before contact is saved
+- awf_after_contact_save: After contact is saved
+- awf_before_button_display: Before button is displayed
+- awf_after_button_display: After button is displayed
+
+FILTER HOOKS:
+- awf_phone_number: Filter phone number
+- awf_form_fields: Filter form fields
+- awf_whatsapp_message: Filter WhatsApp message format
+- awf_contact_data: Filter contact data before save
+- awf_button_attributes: Filter button HTML attributes
+- awf_form_validation: Filter form validation rules
+
+JavaScript Events:
+=================
+
+CUSTOM EVENTS:
+- awf:form:shown: When form is displayed
+- awf:form:hidden: When form is hidden
+- awf:form:submitted: When form is successfully submitted
+- awf:form:error: When form submission fails
+
+CSS Classes:
+===========
+
+MAIN CLASSES:
+- .awf-floating-container: Main container
+- .awf-floating-button: The floating button
+- .awf-contact-form: Contact form modal
+- .awf-form-input: Form input fields
+- .awf-submit-button: Submit button
+- .awf-message-container: Success/error messages
+
+MODIFIER CLASSES:
+- .awf-position-*: Position variants
+- .awf-form-*: Form size variants
+- .awf-animated: Animation enabled
+- .awf-loading: Loading state
+- .awf-error: Error state
+- .awf-success: Success state
+
+API Usage Examples:
+==================
+
+JAVASCRIPT API:
+```javascript
+// Show form programmatically
+AWF.show();
+
+// Hide form
+AWF.hide();
+
+// Toggle form
+AWF.toggle();
+
+// Check if form is visible
+if (AWF.isVisible()) {
+    console.log('Form is visible');
+}
+
+// Set phone number dynamically
+AWF.setPhone('628123456789');
+
+// Listen to events
+$(document).on('awf:form:submitted', function(e, response) {
+    console.log('Form submitted successfully', response);
+});
+```
+
+PHP API:
+```php
+// Get contact data
+$contacts = AWF_Database::get_contacts();
+
+// Add custom validation
+add_filter('awf_form_validation', function($rules) {
+    $rules['email']['custom'] = 'my_email_validator';
+    return $rules;
+});
+
+// Modify WhatsApp message
+add_filter('awf_whatsapp_message', function($message, $data) {
+    return "Custom: " . $message;
+}, 10, 2);
+
+// Hook into contact save
+add_action('awf_after_contact_save', function($contact_id, $data) {
+    // Send email notification
+    wp_mail('admin@site.com', 'New Contact', 'New contact received');
+}, 10, 2);
+```
+
+Security Features:
+=================
+
+1. INPUT SANITIZATION:
+   - All user inputs are sanitized using WordPress functions
+   - XSS prevention through proper escaping
+   - SQL injection prevention with prepared statements
+
+2. NONCE VERIFICATION:
+   - All AJAX requests include nonce verification
+   - Forms include CSRF protection
+   - Admin actions require proper capabilities
+
+3. CAPABILITY CHECKS:
+   - Only administrators can access settings
+   - Proper user permissions for all actions
+   - Role-based access control
+
+4. DATA VALIDATION:
+   - Server-side validation for all inputs
+   - Email format validation
+   - Phone number format validation
+   - Message length limits
+
+Performance Optimizations:
+=========================
+
+1. ASSET LOADING:
+   - CSS/JS loaded only when needed
+   - Minified and compressed assets
+   - Conditional loading based on settings
+
+2. DATABASE OPTIMIZATION:
+   - Indexed database fields
+   - Efficient queries with pagination
+   - Cleanup of old data
+
+3. CACHING SUPPORT:
+   - Compatible with popular caching plugins
+   - Static asset caching
+   - Database query caching
+
+4. MOBILE OPTIMIZATION:
+   - Responsive design
+   - Touch-friendly interactions
+   - Optimized for mobile performance
+
+Troubleshooting Guide:
+=====================
+
+COMMON ISSUES:
+
+1. Button not appearing:
+   - Check if phone number is configured
+   - Verify no CSS conflicts
+   - Disable caching temporarily
+
+2. Form not submitting:
+   - Check required fields
+   - Verify internet connection
+   - Check browser console for errors
+
+3. WhatsApp not opening:
+   - Verify phone number format
+   - Check if WhatsApp is installed
+   - Test on different devices
+
+4. Export not working:
+   - Check file permissions
+   - Verify server configuration
+   - Disable popup blockers
+
+5. Settings not saving:
+   - Check user permissions
+   - Verify AJAX is working
+   - Check for plugin conflicts
+
+DEBUGGING:
+
+Enable WordPress debug mode:
+```php
+// wp-config.php
+define('WP_DEBUG', true);
+define('WP_DEBUG_LOG', true);
+define('WP_DEBUG_DISPLAY', false);
+```
+
+Check error logs:
+- /wp-content/debug.log
+- Server error logs
+- Browser console
+
+Test plugin functionality:
+- Deactivate other plugins
+- Switch to default theme
+- Test in different browsers
+
+Future Updates:
+==============
+
+PLANNED FEATURES:
+- Integration with popular form plugins
+- Advanced analytics and reporting
+- Multi-language form support
+- Webhook integrations
+- Custom form fields
+- A/B testing for button designs
+- Scheduled messages
+- Auto-responder functionality
+
+VERSION ROADMAP:
+- v2.1: Enhanced analytics
+- v2.2: Form builder integration
+- v2.3: Advanced customization
+- v2.4: Performance improvements
+- v3.0: Major feature update
