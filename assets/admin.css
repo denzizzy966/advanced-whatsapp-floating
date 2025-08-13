@@ -1,0 +1,1022 @@
+/* Advanced WhatsApp Floating Button - Admin Styles */
+/* assets/admin.css */
+
+:root {
+    --awf-primary: #25D366;
+    --awf-primary-hover: #128C7E;
+    --awf-primary-light: rgba(37, 211, 102, 0.1);
+    --awf-success: #28a745;
+    --awf-danger: #dc3545;
+    --awf-warning: #ffc107;
+    --awf-info: #17a2b8;
+    --awf-light: #f8f9fa;
+    --awf-dark: #343a40;
+    --awf-border: #dee2e6;
+    --awf-border-radius: 8px;
+    --awf-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --awf-shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.15);
+    --awf-transition: all 0.3s ease;
+}
+
+/* General Admin Styles */
+.awf-admin {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+}
+
+.awf-admin h1,
+.awf-admin h2,
+.awf-admin h3 {
+    color: var(--awf-dark);
+    font-weight: 600;
+}
+
+/* Dashboard Grid */
+.awf-dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    border: 1px solid var(--awf-border);
+    transition: var(--awf-transition);
+}
+
+.awf-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--awf-shadow-lg);
+}
+
+.awf-stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--awf-primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--awf-primary);
+    font-size: 24px;
+}
+
+.awf-stat-content h3 {
+    margin: 0 0 4px 0;
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--awf-dark);
+}
+
+.awf-stat-content p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Quick Actions */
+.awf-quick-actions {
+    background: white;
+    border-radius: var(--awf-border-radius);
+    box-shadow: var(--awf-shadow);
+    padding: 24px;
+    border: 1px solid var(--awf-border);
+}
+
+.awf-quick-actions h2 {
+    margin: 0 0 20px 0;
+    font-size: 1.3em;
+    color: var(--awf-dark);
+}
+
+.awf-action-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.awf-action-buttons .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: var(--awf-border-radius);
+    transition: var(--awf-transition);
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.awf-action-buttons .button-primary {
+    background: var(--awf-primary);
+    color: white;
+}
+
+.awf-action-buttons .button-primary:hover {
+    background: var(--awf-primary-hover);
+    transform: translateY(-1px);
+}
+
+/* Recent Contacts */
+.awf-recent-contacts {
+    background: white;
+    border-radius: var(--awf-border-radius);
+    box-shadow: var(--awf-shadow);
+    padding: 24px;
+    border: 1px solid var(--awf-border);
+}
+
+.awf-recent-contacts h2 {
+    margin: 0 0 20px 0;
+    font-size: 1.3em;
+    color: var(--awf-dark);
+}
+
+.awf-contacts-table {
+    overflow-x: auto;
+}
+
+.awf-contacts-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.awf-contacts-table th,
+.awf-contacts-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--awf-border);
+}
+
+.awf-contacts-table th {
+    background: var(--awf-light);
+    font-weight: 600;
+    color: var(--awf-dark);
+}
+
+.awf-contacts-table tr:hover {
+    background: rgba(37, 211, 102, 0.05);
+}
+
+/* No Contacts State */
+.awf-no-contacts {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+.awf-no-contacts-icon {
+    font-size: 4em;
+    color: var(--awf-border);
+    margin-bottom: 20px;
+}
+
+.awf-no-contacts h3 {
+    margin: 0 0 12px 0;
+    font-size: 1.4em;
+    color: var(--awf-dark);
+}
+
+.awf-no-contacts p {
+    margin: 0 0 24px 0;
+    font-size: 1em;
+    line-height: 1.5;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* System Status */
+.awf-system-status {
+    background: white;
+    border-radius: var(--awf-border-radius);
+    box-shadow: var(--awf-shadow);
+    padding: 24px;
+    border: 1px solid var(--awf-border);
+}
+
+.awf-system-status h2 {
+    margin: 0 0 20px 0;
+    font-size: 1.3em;
+    color: var(--awf-dark);
+}
+
+.awf-status-items {
+    display: grid;
+    gap: 12px;
+}
+
+.awf-status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.awf-status-item:last-child {
+    border-bottom: none;
+}
+
+.awf-status-label {
+    font-weight: 500;
+    color: var(--awf-dark);
+}
+
+.awf-status-value {
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 0.85em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.awf-status-success {
+    background: rgba(40, 167, 69, 0.1);
+    color: var(--awf-success);
+}
+
+.awf-status-error {
+    background: rgba(220, 53, 69, 0.1);
+    color: var(--awf-danger);
+}
+
+.awf-status-warning {
+    background: rgba(255, 193, 7, 0.1);
+    color: #856404;
+}
+
+.awf-status-info {
+    background: rgba(23, 162, 184, 0.1);
+    color: var(--awf-info);
+}
+
+/* Contacts Page */
+.awf-filters-section {
+    background: white;
+    border-radius: var(--awf-border-radius);
+    box-shadow: var(--awf-shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--awf-border);
+}
+
+.awf-filters-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    align-items: end;
+}
+
+.awf-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.awf-filter-group label {
+    font-weight: 500;
+    color: var(--awf-dark);
+    font-size: 0.9em;
+}
+
+.awf-filter-group input,
+.awf-filter-group select {
+    padding: 8px 12px;
+    border: 1px solid var(--awf-border);
+    border-radius: var(--awf-border-radius);
+    font-size: 14px;
+}
+
+.awf-filter-group input:focus,
+.awf-filter-group select:focus {
+    outline: none;
+    border-color: var(--awf-primary);
+    box-shadow: 0 0 0 3px var(--awf-primary-light);
+}
+
+.awf-results-summary {
+    background: var(--awf-light);
+    padding: 12px 16px;
+    border-radius: var(--awf-border-radius);
+    margin-bottom: 20px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.awf-table-wrapper {
+    background: white;
+    border-radius: var(--awf-border-radius);
+    box-shadow: var(--awf-shadow);
+    overflow: hidden;
+    border: 1px solid var(--awf-border);
+}
+
+.awf-contacts-table {
+    width: 100%;
+}
+
+.awf-contacts-table th {
+    background: var(--awf-light);
+    padding: 16px 12px;
+    font-weight: 600;
+    color: var(--awf-dark);
+    border-bottom: 2px solid var(--awf-border);
+}
+
+.awf-contacts-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+.awf-contacts-table tr:hover {
+    background: rgba(37, 211, 102, 0.03);
+}
+
+.awf-message-preview {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.awf-date-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.awf-date {
+    font-weight: 500;
+    color: var(--awf-dark);
+    font-size: 0.9em;
+}
+
+.awf-time {
+    color: #666;
+    font-size: 0.8em;
+}
+
+.awf-no-data {
+    color: #999;
+    font-style: italic;
+}
+
+.awf-status-select {
+    padding: 4px 8px;
+    border: 1px solid var(--awf-border);
+    border-radius: 4px;
+    font-size: 0.85em;
+    background: white;
+}
+
+.awf-action-buttons {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.awf-action-buttons .button {
+    padding: 4px 8px;
+    font-size: 0.8em;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+    border: 1px solid transparent;
+}
+
+.awf-whatsapp-btn {
+    background: var(--awf-primary);
+    color: white;
+}
+
+.awf-whatsapp-btn:hover {
+    background: var(--awf-primary-hover);
+    color: white;
+}
+
+/* Bulk Actions */
+.awf-bulk-actions {
+    background: white;
+    padding: 16px;
+    border-top: 1px solid var(--awf-border);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.awf-bulk-actions select {
+    padding: 6px 10px;
+    border: 1px solid var(--awf-border);
+    border-radius: var(--awf-border-radius);
+}
+
+/* Pagination */
+.awf-pagination {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background: white;
+    border-radius: var(--awf-border-radius);
+    box-shadow: var(--awf-shadow);
+    margin-top: 20px;
+}
+
+.awf-pagination a,
+.awf-pagination span {
+    padding: 8px 12px;
+    margin: 0 2px;
+    border: 1px solid var(--awf-border);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--awf-dark);
+    transition: var(--awf-transition);
+}
+
+.awf-pagination a:hover {
+    background: var(--awf-primary);
+    color: white;
+    border-color: var(--awf-primary);
+}
+
+.awf-pagination .current {
+    background: var(--awf-primary);
+    color: white;
+    border-color: var(--awf-primary);
+}
+
+/* Settings Page */
+.awf-settings-container {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.awf-settings-main {
+    background: white;
+    border-radius: var(--awf-border-radius);
+    box-shadow: var(--awf-shadow);
+    border: 1px solid var(--awf-border);
+}
+
+/* Tabs */
+.awf-settings-tabs {
+    overflow: hidden;
+}
+
+.awf-tab-nav {
+    display: flex;
+    background: var(--awf-light);
+    border-bottom: 1px solid var(--awf-border);
+}
+
+.awf-tab-button {
+    flex: 1;
+    padding: 16px 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    color: #666;
+    transition: var(--awf-transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    border-bottom: 3px solid transparent;
+}
+
+.awf-tab-button:hover {
+    background: rgba(37, 211, 102, 0.05);
+    color: var(--awf-primary);
+}
+
+.awf-tab-button.active {
+    background: white;
+    color: var(--awf-primary);
+    border-bottom-color: var(--awf-primary);
+}
+
+.awf-tab-panel {
+    display: none;
+    padding: 30px;
+}
+
+.awf-tab-panel.active {
+    display: block;
+}
+
+.awf-settings-section {
+    margin-bottom: 40px;
+}
+
+.awf-settings-section:last-child {
+    margin-bottom: 0;
+}
+
+.awf-settings-section h2 {
+    margin: 0 0 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--awf-light);
+    font-size: 1.3em;
+    color: var(--awf-dark);
+}
+
+/* Form Elements */
+.form-table th {
+    width: 200px;
+    padding: 15px 10px 15px 0;
+    vertical-align: top;
+    font-weight: 600;
+    color: var(--awf-dark);
+}
+
+.form-table td {
+    padding: 15px 10px;
+}
+
+.form-table input[type="text"],
+.form-table input[type="email"],
+.form-table input[type="number"],
+.form-table input[type="color"],
+.form-table select,
+.form-table textarea {
+    border: 1px solid var(--awf-border);
+    border-radius: var(--awf-border-radius);
+    padding: 8px 12px;
+    font-size: 14px;
+    transition: var(--awf-transition);
+}
+
+.form-table input:focus,
+.form-table select:focus,
+.form-table textarea:focus {
+    outline: none;
+    border-color: var(--awf-primary);
+    box-shadow: 0 0 0 3px var(--awf-primary-light);
+}
+
+.form-table .description {
+    color: #666;
+    font-size: 0.9em;
+    margin-top: 6px;
+    line-height: 1.4;
+}
+
+/* Switch Toggle */
+.awf-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.awf-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.awf-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: var(--awf-transition);
+    border-radius: 24px;
+}
+
+.awf-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: var(--awf-transition);
+    border-radius: 50%;
+}
+
+.awf-switch input:checked + .awf-slider {
+    background-color: var(--awf-primary);
+}
+
+.awf-switch input:checked + .awf-slider:before {
+    transform: translateX(26px);
+}
+
+.awf-switch:focus-within .awf-slider {
+    box-shadow: 0 0 0 3px var(--awf-primary-light);
+}
+
+/* Icon Upload */
+.awf-icon-upload {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.awf-icon-preview {
+    width: 60px;
+    height: 60px;
+    border: 2px dashed var(--awf-border);
+    border-radius: var(--awf-border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--awf-light);
+}
+
+.awf-icon-preview img {
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: contain;
+}
+
+.awf-no-icon {
+    color: #999;
+    font-size: 0.8em;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* Settings Sidebar */
+.awf-settings-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.awf-preview-container,
+.awf-help-container {
+    background: white;
+    border-radius: var(--awf-border-radius);
+    box-shadow: var(--awf-shadow);
+    padding: 20px;
+    border: 1px solid var(--awf-border);
+}
+
+.awf-preview-container h3,
+.awf-help-container h3 {
+    margin: 0 0 16px 0;
+    font-size: 1.1em;
+    color: var(--awf-dark);
+}
+
+/* Preview */
+.awf-preview-wrapper {
+    position: relative;
+    background: #f0f0f0;
+    border-radius: var(--awf-border-radius);
+    padding: 40px 20px;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.awf-preview-btn {
+    width: 60px;
+    height: 60px;
+    background: var(--awf-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    transition: var(--awf-transition);
+    box-shadow: var(--awf-shadow);
+}
+
+.awf-preview-btn:hover {
+    transform: scale(1.1);
+}
+
+.awf-preview-form {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: white;
+    border-radius: var(--awf-border-radius);
+    box-shadow: var(--awf-shadow-lg);
+    min-width: 250px;
+    overflow: hidden;
+    border: 1px solid var(--awf-border);
+}
+
+.awf-preview-form-header {
+    background: var(--awf-primary);
+    color: white;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.awf-preview-form-header h4 {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.awf-preview-close {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.awf-preview-form-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.awf-preview-form-body input,
+.awf-preview-form-body textarea,
+.awf-preview-form-body button {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--awf-border);
+    border-radius: 4px;
+    font-size: 0.85em;
+    box-sizing: border-box;
+}
+
+.awf-preview-form-body button {
+    background: var(--awf-primary);
+    color: white;
+    border: none;
+    font-weight: 500;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.awf-preview-controls {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.awf-preview-controls .button {
+    flex: 1;
+    text-align: center;
+    font-size: 0.8em;
+    padding: 6px 10px;
+}
+
+/* Help Section */
+.awf-help-item {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.awf-help-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.awf-help-item h4 {
+    margin: 0 0 8px 0;
+    font-size: 0.95em;
+    color: var(--awf-dark);
+}
+
+.awf-help-item p {
+    margin: 0;
+    font-size: 0.85em;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* Modal */
+.awf-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.awf-modal-content {
+    background: white;
+    border-radius: var(--awf-border-radius);
+    box-shadow: var(--awf-shadow-lg);
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.awf-modal-header {
+    padding: 20px;
+    border-bottom: 1px solid var(--awf-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--awf-light);
+}
+
+.awf-modal-header h2 {
+    margin: 0;
+    font-size: 1.2em;
+    color: var(--awf-dark);
+}
+
+.awf-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--awf-transition);
+}
+
+.awf-modal-close:hover {
+    background: #eee;
+}
+
+.awf-modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.awf-modal-footer {
+    padding: 20px;
+    border-top: 1px solid var(--awf-border);
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    background: var(--awf-light);
+}
+
+/* Contact Details */
+.awf-contact-details {
+    display: grid;
+    gap: 16px;
+}
+
+.awf-contact-field {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 12px;
+    align-items: start;
+}
+
+.awf-contact-field label {
+    font-weight: 600;
+    color: var(--awf-dark);
+    font-size: 0.9em;
+}
+
+.awf-contact-field span,
+.awf-contact-field div {
+    color: #666;
+    word-break: break-word;
+}
+
+.awf-message-field {
+    grid-template-columns: 120px 1fr;
+    align-items: start;
+}
+
+.awf-message-field div {
+    background: var(--awf-light);
+    padding: 12px;
+    border-radius: var(--awf-border-radius);
+    border: 1px solid var(--awf-border);
+    max-height: 200px;
+    overflow-y: auto;
+    line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .awf-settings-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .awf-settings-sidebar {
+        order: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .awf-stats-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .awf-filters-form {
+        grid-template-columns: 1fr;
+    }
+    
+    .awf-action-buttons {
+        flex-direction: column;
+    }
+    
+    .awf-tab-nav {
+        flex-direction: column;
+    }
+    
+    .awf-tab-panel {
+        padding: 20px;
+    }
+    
+    .awf-preview-wrapper {
+        padding: 20px 10px;
+        min-height: 150px;
+    }
+    
+    .awf-preview-form {
+        position: static;
+        margin-top: 20px;
+    }
+    
+    .awf-contact-field {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+    
+    .awf-modal-content {
+        margin: 10px;
+        max-height: calc(100vh - 20px);
+    }
+    
+    .awf-modal-header,
+    .awf-modal-body,
+    .awf-modal-footer {
+        padding: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .awf-stat-card {
+        padding: 16px;
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .awf-stat-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .awf-contacts-table {
+        font-size: 0.8em;
+    }
+    
+    .awf-action-buttons .button {
+        font-size: 0.7em;
+        padding: 3px 6px;
+    }
+}24px;
+    margin-top: 20px;
+}
+
+/* Statistics Cards */
+.awf-stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.awf-stat-card {
+    background: white;
+    border-radius: var(--awf-border-radius);
+    box-shadow: var(--awf-shadow);
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 
