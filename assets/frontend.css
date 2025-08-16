@@ -1,774 +1,175 @@
-/* Advanced WhatsApp Floating Button - Frontend Styles */
-/* assets/frontend.css */
-
+/* =========================================================
+   VARIABLES
+   ========================================================= */
 :root {
     --awf-primary: #25D366;
     --awf-primary-hover: #128C7E;
     --awf-primary-light: rgba(37, 211, 102, 0.1);
-    --awf-white: #ffffff;
-    --awf-black: #000000;
-    --awf-gray-100: #f8f9fa;
-    --awf-gray-200: #e9ecef;
-    --awf-gray-300: #dee2e6;
-    --awf-gray-400: #ced4da;
-    --awf-gray-500: #adb5bd;
-    --awf-gray-600: #6c757d;
-    --awf-gray-700: #495057;
-    --awf-gray-800: #343a40;
-    --awf-gray-900: #212529;
-    --awf-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    --awf-shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.2);
-    --awf-border-radius: 12px;
-    --awf-border-radius-lg: 16px;
-    --awf-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --awf-z-index: 9999;
+    --awf-success: #28a745;
+    --awf-error: #dc3545;
+    --awf-text-color: #333;
+    --awf-bg-color: #fff;
+    --awf-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Container */
-.awf-floating-container {
-    position: fixed;
-    z-index: var(--awf-z-index);
-    font-family: var(--awf-font-family, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
-    font-size: var(--awf-font-size, 16px);
-    line-height: 1.5;
-    color: var(--awf-gray-900);
-}
-
-/* Position Classes */
-.awf-position-bottom-right {
-    bottom: 20px;
-    right: 20px;
-}
-
-.awf-position-bottom-left {
-    bottom: 20px;
-    left: 20px;
-}
-
-.awf-position-top-right {
-    top: 20px;
-    right: 20px;
-}
-
-.awf-position-top-left {
-    top: 20px;
-    left: 20px;
-}
-
-.awf-position-center-right {
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
-}
-
-.awf-position-center-left {
-    top: 50%;
-    left: 20px;
-    transform: translateY(-50%);
-}
-
-/* Floating Button */
+/* =========================================================
+   BASE STYLES
+   ========================================================= */
 .awf-floating-button {
-    width: var(--awf-button-size, 60px);
-    height: var(--awf-button-size, 60px);
-    background: var(--awf-bg-color, var(--awf-primary));
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    background-color: var(--awf-primary);
+    color: #fff;
+    padding: 12px 16px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     cursor: pointer;
-    box-shadow: var(--awf-shadow);
-    transition: var(--awf-transition);
-    color: var(--awf-text-color, var(--awf-white));
-    position: relative;
-    overflow: hidden;
-    border: none;
-    outline: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.3s ease;
 }
 
 .awf-floating-button:hover {
-    transform: scale(1.1);
-    box-shadow: var(--awf-shadow-lg);
+    background-color: var(--awf-primary-hover);
 }
 
-.awf-floating-button:active {
-    transform: scale(1.05);
-}
-
-.awf-button-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
-}
-
-.awf-whatsapp-icon,
-.awf-custom-icon {
-    width: calc(var(--awf-button-size, 60px) * 0.4);
-    height: calc(var(--awf-button-size, 60px) * 0.4);
-    min-width: 20px;
-    min-height: 20px;
-    max-width: 40px;
-    max-height: 40px;
-}
-
-.awf-custom-icon {
-    object-fit: contain;
-}
-
-/* Animation */
-.awf-floating-button.awf-animated .awf-pulse-ring {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+/* =========================================================
+   FORM CONTAINER
+   ========================================================= */
+.awf-form-container {
+    background: var(--awf-bg-color);
+    font-family: var(--awf-font-family);
     width: 100%;
-    height: 100%;
-    border: 2px solid var(--awf-bg-color, var(--awf-primary));
-    border-radius: 50%;
-    opacity: 0;
-    animation: awf-pulse 2s infinite;
-}
-
-.awf-floating-button.awf-animated .awf-pulse-ring-delay {
-    animation-delay: 1s;
-}
-
-@keyframes awf-pulse {
-    0% {
-        transform: translate(-50%, -50%) scale(0.8);
-        opacity: 0.8;
-    }
-    50% {
-        opacity: 0.4;
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(2);
-        opacity: 0;
-    }
-}
-
-/* Contact Form */
-.awf-contact-form {
-    position: absolute;
-    background: var(--awf-white);
-    border-radius: var(--awf-border-radius-lg);
-    box-shadow: var(--awf-shadow-lg);
+    max-width: 420px;
+    border-radius: 8px;
     overflow: hidden;
-    min-width: 320px;
-    max-width: 90vw;
-    max-height: 90vh;
-    z-index: calc(var(--awf-z-index) + 1);
-    animation: awf-slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid var(--awf-gray-200);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
 }
 
-/* Form positioning based on button position */
-.awf-position-bottom-right .awf-contact-form {
-    bottom: calc(var(--awf-button-size, 60px) + 20px);
-    right: 0;
-}
-
-.awf-position-bottom-left .awf-contact-form {
-    bottom: calc(var(--awf-button-size, 60px) + 20px);
-    left: 0;
-}
-
-.awf-position-top-right .awf-contact-form {
-    top: calc(var(--awf-button-size, 60px) + 20px);
-    right: 0;
-}
-
-.awf-position-top-left .awf-contact-form {
-    top: calc(var(--awf-button-size, 60px) + 20px);
-    left: 0;
-}
-
-.awf-position-center-right .awf-contact-form {
-    top: 50%;
-    right: calc(var(--awf-button-size, 60px) + 20px);
-    transform: translateY(-50%);
-}
-
-.awf-position-center-left .awf-contact-form {
-    top: 50%;
-    left: calc(var(--awf-button-size, 60px) + 20px);
-    transform: translateY(-50%);
-}
-
-@keyframes awf-slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* Form Sizes */
-.awf-form-small {
-    min-width: 280px;
-    font-size: 14px;
-}
-
-.awf-form-medium {
-    min-width: 320px;
-    font-size: 16px;
-}
-
-.awf-form-large {
-    min-width: 380px;
-    font-size: 18px;
-}
-
-/* Form Header */
 .awf-form-header {
-    background: linear-gradient(135deg, var(--awf-primary-hover) 0%, var(--awf-primary) 100%);
-    color: var(--awf-white);
-    padding: 20px;
+    background: var(--awf-primary);
+    color: #fff;
+    padding: 12px 16px;
+    font-size: 18px;
+    font-weight: bold;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.awf-form-title {
-    margin: 0;
-    font-size: 1.1em;
-    font-weight: 600;
-    line-height: 1.3;
-}
-
-.awf-close-button {
-    background: none;
-    border: none;
-    color: var(--awf-white);
-    font-size: 24px;
-    cursor: pointer;
-    padding: 4px;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: var(--awf-transition);
-    opacity: 0.8;
-}
-
-.awf-close-button:hover {
-    opacity: 1;
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* Form Body */
 .awf-form-body {
-    padding: 24px;
+    padding: 16px;
 }
 
-.awf-form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.awf-form-group {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-}
-
-.awf-form-input,
-.awf-form-textarea {
+/* =========================================================
+   INPUT FIELDS
+   ========================================================= */
+.awf-form-body input,
+.awf-form-body textarea {
     width: 100%;
-    padding: 12px 16px;
-    border: 2px solid var(--awf-gray-300);
-    border-radius: var(--awf-border-radius);
-    font-size: 1em;
-    font-family: inherit;
-    transition: var(--awf-transition);
-    background: var(--awf-gray-100);
-    color: var(--awf-gray-900);
-    box-sizing: border-box;
-    outline: none;
-}
-
-.awf-form-input:focus,
-.awf-form-textarea:focus {
-    border-color: var(--awf-primary);
-    background: var(--awf-white);
-    box-shadow: 0 0 0 3px var(--awf-primary-light);
-}
-
-.awf-form-input::placeholder,
-.awf-form-textarea::placeholder {
-    color: var(--awf-gray-500);
-    opacity: 1;
-}
-
-.awf-form-textarea {
-    resize: vertical;
-    min-height: 80px;
-    max-height: 120px;
-}
-
-.awf-form-label {
-    font-size: 0.9em;
-    font-weight: 500;
-    color: var(--awf-gray-700);
-    margin-bottom: 4px;
-    order: -1;
-}
-
-.awf-required-mark {
-    color: #dc3545;
-    margin-left: 2px;
-}
-
-/* Submit Button */
-.awf-submit-button {
-    width: 100%;
-    background: linear-gradient(135deg, var(--awf-primary-hover) 0%, var(--awf-primary) 100%);
-    color: var(--awf-white);
-    border: none;
-    padding: 14px 24px;
-    border-radius: var(--awf-border-radius);
-    font-size: 1em;
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--awf-transition);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    min-height: 48px;
-    position: relative;
-    overflow: hidden;
-}
-
-.awf-submit-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
-}
-
-.awf-submit-button:active {
-    transform: translateY(0);
-}
-
-.awf-submit-button:disabled {
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-
-.awf-submit-loading {
-    display: none;
-    align-items: center;
-    gap: 8px;
-}
-
-.awf-spinner {
-    animation: awf-spin 1s linear infinite;
-}
-
-@keyframes awf-spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.awf-whatsapp-icon-small {
-    width: 16px;
-    height: 16px;
-}
-
-/* Form Footer */
-.awf-form-footer {
-    padding: 16px 24px;
-    background: var(--awf-gray-100);
-    border-top: 1px solid var(--awf-gray-200);
-}
-
-.awf-privacy-notice {
-    text-align: center;
-    color: var(--awf-gray-600);
-    font-size: 0.85em;
-    line-height: 1.4;
-}
-
-/* Message Container */
-.awf-message-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: calc(var(--awf-z-index) + 2);
-    max-width: 400px;
-    animation: awf-slideInRight 0.3s ease-out;
-}
-
-.awf-message-content {
-    background: var(--awf-white);
-    border-radius: var(--awf-border-radius);
-    box-shadow: var(--awf-shadow);
-    padding: 16px 20px;
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    border-left: 4px solid var(--awf-primary);
-}
-
-.awf-message-content.awf-message-success {
-    border-left-color: #28a745;
-}
-
-.awf-message-content.awf-message-error {
-    border-left-color: #dc3545;
-}
-
-.awf-message-icon {
-    flex-shrink: 0;
-}
-
-.awf-message-content.awf-message-success .awf-error-icon,
-.awf-message-content.awf-message-error .awf-success-icon {
-    display: none;
-}
-
-.awf-success-icon {
-    color: #28a745;
-}
-
-.awf-error-icon {
-    color: #dc3545;
-}
-
-.awf-message-text {
-    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
     font-size: 14px;
-    line-height: 1.4;
-    color: var(--awf-gray-800);
+    margin-bottom: 10px;
+    box-sizing: border-box;
 }
 
-.awf-message-close {
-    background: none;
-    border: none;
-    color: var(--awf-gray-500);
-    cursor: pointer;
-    padding: 0;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: var(--awf-transition);
-    flex-shrink: 0;
+.awf-form-body input:focus,
+.awf-form-body textarea:focus {
+    border-color: var(--awf-primary);
+    outline: none;
+    box-shadow: 0 0 4px var(--awf-primary-light);
 }
 
-.awf-message-close:hover {
-    color: var(--awf-gray-700);
-    background: var(--awf-gray-200);
-}
-
-@keyframes awf-slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* Overlay for mobile */
-.awf-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
+/* =========================================================
+   SUBMIT BUTTON
+   ========================================================= */
+.awf-submit,
+button[type="submit"] {
+    display: block;
     width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: var(--awf-z-index);
-    opacity: 0;
-    animation: awf-fadeIn 0.3s ease-out forwards;
+    padding: 12px;
+    background-color: var(--awf-primary);
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 8px;
 }
 
-@keyframes awf-fadeIn {
-    to {
-        opacity: 1;
-    }
+.awf-submit:hover,
+button[type="submit"]:hover {
+    background-color: var(--awf-primary-hover);
 }
 
-/* Validation Styles */
-.awf-form-input.awf-error,
-.awf-form-textarea.awf-error {
-    border-color: #dc3545;
-    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+/* =========================================================
+   ERROR MESSAGE
+   ========================================================= */
+.awf-error-message {
+    color: var(--awf-error);
+    font-size: 12px;
+    margin-top: -6px;
+    margin-bottom: 8px;
 }
 
-.awf-form-input:invalid,
-.awf-form-textarea:invalid {
-    border-color: #dc3545;
-}
-
-.awf-form-input:valid.awf-touched,
-.awf-form-textarea:valid.awf-touched {
-    border-color: #28a745;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .awf-floating-container {
-        --awf-button-size: 56px;
-    }
-    
-    .awf-position-bottom-right,
-    .awf-position-bottom-left,
-    .awf-position-top-right,
-    .awf-position-top-left {
-        bottom: 16px;
-        right: 16px;
-        left: auto;
-        top: auto;
-    }
-    
-    .awf-contact-form {
-        position: fixed !important;
-        top: 50% !important;
-        left: 50% !important;
-        right: auto !important;
-        bottom: auto !important;
-        transform: translate(-50%, -50%) !important;
-        min-width: 300px;
-        max-width: calc(100vw - 32px);
-        max-height: calc(100vh - 64px);
-        overflow-y: auto;
-    }
-    
-    .awf-form-body {
-        padding: 20px;
-        max-height: calc(100vh - 200px);
-        overflow-y: auto;
-    }
-    
-    .awf-message-container {
-        top: 16px;
-        right: 16px;
-        left: 16px;
-        max-width: none;
-    }
-    
-    .awf-form-header {
-        padding: 16px 20px;
-    }
-    
-    .awf-form-title {
-        font-size: 1em;
-    }
-    
-    .awf-form-footer {
-        padding: 12px 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .awf-floating-container {
-        --awf-button-size: 52px;
-    }
-    
-    .awf-contact-form {
-        min-width: 280px;
-    }
-    
-    .awf-form-body {
-        padding: 16px;
-    }
-    
-    .awf-form-header {
-        padding: 12px 16px;
-    }
-    
-    .awf-form-footer {
-        padding: 12px 16px;
-    }
-    
-    .awf-submit-button {
-        padding: 12px 20px;
-        font-size: 0.9em;
-    }
-    
-    .awf-form-input,
-    .awf-form-textarea {
-        padding: 10px 14px;
-        font-size: 16px; /* Prevent zoom on iOS */
-    }
-}
-
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-    .awf-contact-form {
-        background: var(--awf-gray-800);
-        border-color: var(--awf-gray-700);
-        color: var(--awf-white);
-    }
-    
-    .awf-form-input,
-    .awf-form-textarea {
-        background: var(--awf-gray-700);
-        border-color: var(--awf-gray-600);
-        color: var(--awf-white);
-    }
-    
-    .awf-form-input:focus,
-    .awf-form-textarea:focus {
-        background: var(--awf-gray-600);
-    }
-    
-    .awf-form-label {
-        color: var(--awf-gray-300);
-    }
-    
-    .awf-form-footer {
-        background: var(--awf-gray-700);
-        border-color: var(--awf-gray-600);
-    }
-    
-    .awf-privacy-notice {
-        color: var(--awf-gray-400);
-    }
-    
-    .awf-message-content {
-        background: var(--awf-gray-800);
-        color: var(--awf-white);
-    }
-    
-    .awf-message-text {
-        color: var(--awf-gray-200);
-    }
-}
-
-/* High Contrast Mode */
-@media (prefers-contrast: high) {
+/* =========================================================
+   MOBILE FIXES
+   ========================================================= */
+@media screen and (max-width: 768px) {
     .awf-floating-button {
-        border: 2px solid var(--awf-black);
+        bottom: 15px;
+        right: 15px;
+        padding: 10px 14px;
     }
-    
-    .awf-contact-form {
-        border: 2px solid var(--awf-black);
-    }
-    
-    .awf-form-input,
-    .awf-form-textarea {
-        border: 2px solid var(--awf-black);
-    }
-    
-    .awf-submit-button {
-        border: 2px solid var(--awf-black);
-    }
-}
 
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+    .awf-form-container {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 0;
+        height: 100vh;
+        max-height: 100vh;
     }
-    
-    .awf-floating-button.awf-animated .awf-pulse-ring {
-        display: none;
+
+    .awf-form-body {
+        padding: 12px;
     }
-    
-    .awf-floating-button:hover {
-        transform: none;
-    }
-    
-    .awf-submit-button:hover {
-        transform: none;
+
+    .awf-submit,
+    button[type="submit"] {
+        font-size: 15px;
+        padding: 10px;
     }
 }
 
-/* Print Styles */
-@media print {
-    .awf-floating-container {
-        display: none !important;
+/* =========================================================
+   LANDSCAPE FIX
+   ========================================================= */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+    .awf-form-container {
+        height: auto;
+        max-height: 90vh;
     }
 }
 
-/* Custom Scrollbar for Form */
-.awf-form-body::-webkit-scrollbar {
-    width: 6px;
-}
-
-.awf-form-body::-webkit-scrollbar-track {
-    background: var(--awf-gray-200);
-    border-radius: 3px;
-}
-
-.awf-form-body::-webkit-scrollbar-thumb {
-    background: var(--awf-gray-400);
-    border-radius: 3px;
-}
-
-.awf-form-body::-webkit-scrollbar-thumb:hover {
-    background: var(--awf-gray-500);
-}
-
-/* Focus Styles for Accessibility */
-.awf-floating-button:focus-visible {
-    outline: 2px solid var(--awf-primary);
-    outline-offset: 2px;
-}
-
-.awf-form-input:focus-visible,
-.awf-form-textarea:focus-visible,
-.awf-submit-button:focus-visible,
-.awf-close-button:focus-visible,
-.awf-message-close:focus-visible {
-    outline: 2px solid var(--awf-primary);
-    outline-offset: 2px;
-}
-
-/* Loading Animation for Submit Button */
-.awf-submit-button.awf-loading .awf-submit-text {
-    opacity: 0;
-}
-
-.awf-submit-button.awf-loading .awf-submit-loading {
-    display: flex;
-}
-
-/* Error State Animation */
-@keyframes awf-shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-}
-
-.awf-form-input.awf-shake,
-.awf-form-textarea.awf-shake {
-    animation: awf-shake 0.5s ease-in-out;
-}
-
-/* Success State Animation */
-@keyframes awf-bounce {
-    0%, 20%, 60%, 100% {
-        transform: translateY(0);
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+@media (prefers-color-scheme: dark) {
+    .awf-form-container {
+        background: #222;
+        color: #fff;
     }
-    40% {
-        transform: translateY(-10px);
-    }
-    80% {
-        transform: translateY(-5px);
-    }
-}
 
-.awf-submit-button.awf-success {
-    animation: awf-bounce 0.6s ease-in-out;
+    .awf-form-body input,
+    .awf-form-body textarea {
+        background: #333;
+        color: #fff;
+        border-color: #555;
+    }
 }
